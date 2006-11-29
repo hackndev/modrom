@@ -10,24 +10,25 @@ echo "" > locales
 echo "" > remove_files
 
 cat custom.conf | while read LINE; do
-if [ ! -z "$LINE" -a "`echo $LINE | cut -c 0`" != "#" ]; then
+if [ ! -z "$LINE" -a "`echo $LINE | cut -c 1`" != "#" ]; then
 
 # remove this locale
-if [ "$(cut_line $LINE 0)" == "l" ]; then
-	LOCALE="$(cut_line $LINE "1-5")"
+if [ "$(cut_line $LINE 1)" == "l" ]; then
+	LOCALE="$(cut_line $LINE "1-6")"
 	case $LOCALE in
 		* ) echo "$LOCALE" >> locales
 	esac
 fi
 
 #remove this program
-if [ "$(cut_line $LINE 0)" == "p" ]; then
-	PROGRAM="$(cut_line $LINE "1-5")"
+if [ "$(cut_line $LINE 1)" == "p" ]; then
+	PROGRAM="$(cut_line $LINE "1-6")"
 	case $PROGRAM in
 		* ) echo "$PROGRAM" >> remove_files
 	esac
 fi
 	
+fi
 done
 
 if [ ! -d data ]; then
@@ -39,7 +40,9 @@ mv ../locales ./
 mv ../remove_files ./
 
 # Removes locales not wanted
-cat locales | while read -n 5 LOCALE; do
-echo $LOCALE
-echo rm *$LOCALE
+cat locales | while read LOCALE; do
+if [ -n "$LOCALE" ]; then
+LOCALE=${LOCALE:1:5}
+#rm *$LOCALE.oprc
+fi
 done

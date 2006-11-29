@@ -96,21 +96,10 @@ if [ ! -e "makecafe.py" ]; then
 	svn cat https://svn.sourceforge.net/svnroot/hackndev/linux4palm/tools/makecafe.py > makecafe.py
 fi
 
-if [ ! -e "rom-partition" ]; then
-	python makecafe.py -c brahma-palmos.zip > ../rom-partition
-fi
-
-if [	-z "$(md5sum ../rom-partition | grep 639952c7a50e8d12d1d9351f3cbe9aa6)" ]; then
-	echo "Something else went wrong."
-	echo "I have no idea what. Might be python, could be a bad makecafe.py."
-	echo "PM fahhem about this."
-	exit
-fi
-
 if [ ! -e "table.sct" ]; then
-	echo 'AAAAAAAAAAAAAAAAAAAAAQEABlgPCD8AAACACwIAAFgQCAAoHAu/CwIAgLAAAAAoHQsLz13xP7wCAIBLdwAAAAAAAAAAAAAAAAAAAAAAVao=' | python -c 'import base64,sys;sys.stdout.write("\0"*432+base64.b64decode(sys.stdin.read()))' > ../table.sct
+	echo 'AAAAAAAAAAAAAAAAAAAAAQEABlgPCD8AAACACwIAAFgQCAAoHAu/CwIAgLAAAAAoHQsLz13xP7wCAIBLdwAAAAAAAAAAAAAAAAAAAAAAVao=' | python -c 'import base64,sys;sys.stdout.write("\0"*432+base64.b64decode(sys.stdin.read()))' > ../../table.sct
 fi
 
-mv brahma-palmos.zip ../
+cp brahma-palmos.zip ../../
 
 echo "All the files are set up now."
