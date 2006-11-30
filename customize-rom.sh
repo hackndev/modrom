@@ -15,16 +15,19 @@ if [ ! -z "$LINE" -a "`echo $LINE | cut -c 1`" != "#" ]; then
 # remove this locale
 if [ "$(cut_line $LINE 1)" == "l" ]; then
 	LOCALE="$(cut_line $LINE "1-6")"
-	case $LOCALE in
-		* ) echo "$LOCALE" >> locales
-	esac
+#	case $LOCALE in
+#		* ) echo "$LOCALE" >> locales
+		echo "$LOCALE" >> locales
+#	esac
 fi
 
-#remove this program
-if [ "$(cut_line $LINE 1)" == "p" ]; then
-	PROGRAM="$(cut_line $LINE "1-6")"
-	case $PROGRAM in
-		* ) echo "$PROGRAM" >> remove_files
+#remove this program 
+if [ "$(cut_line $LINE 1)" = "p" -o "$(cut_line $LINE 1)" = "P" ]; then
+	PROGRAM="$(cut_line $LINE "1-")"
+	BEGINN="$(cut_line $LINE "1")"
+	case $BEGINN in
+		p ) echo "$PROGRAM\*" >> remove_files
+		P ) echo "$PROGRAM" >> remove_files
 	esac
 fi
 	
@@ -43,6 +46,15 @@ mv ../remove_files ./
 cat locales | while read LOCALE; do
 if [ -n "$LOCALE" ]; then
 LOCALE=${LOCALE:1:5}
+#rm *$LOCALE.oprc
+fi
+done
+
+# Removes programs not wanted
+cat remove_files | while read PROG; do
+if [ -n "$PROG" ]; then
+LOCALE=${LOCALE:1:5}
+
 #rm *$LOCALE.oprc
 fi
 done

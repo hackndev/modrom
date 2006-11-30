@@ -1,0 +1,24 @@
+# Comments start with #
+# This file maps applications to filename(s)
+# It does not actually specify names but wildcardable names.
+# If prefixed with P the wildcard is before the name, if A it is after
+#
+# Syntax:
+# Application Name with any character but pipe|custom.conf entry|second entry
+#
+# Application name can only be one line long, preferably shorter than 30 
+#  characters until zenity is set up
+# Once zenity is up, you can _request_ a multi-column setup with " - "
+#  without quotes, but you are not guaranteed it. After Name and Desc, 
+#  no other title names will be given and column will only be added if
+#  more than half of the programs request it. 
+#
+# "custom.conf entry" is the literal entry to be put into custom.conf
+# You can specify multiple entries (for those annoying programs that did 
+#  not stick to palm's naming techniques (tmobile)
+AddIt - Palm Application Shop|pAddIt
+QuickTour - That annoying post-hard-reset app|pTutorial
+Movie|p100.asf
+JPGs|P*.jpg
+Tmobile|Parrow.gif|Pback_arrow.gif|Pbtn_ready2sign.gif|Pbtn_signup.gif|Phdr_tmobile.gif|Pnext_arrow.gif|ptmobile|PTMobileHotSpot.prc
+
