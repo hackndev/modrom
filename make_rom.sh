@@ -7,7 +7,7 @@ if [ "$1" == "--help" -o "$1" == "-h" ]; then
 fi
 
 cd data
-zip ../data.zip *
+zip ../data.zip * > /dev/null
 cd ..
 
 python makecafe.py -c data.zip > rom-partition

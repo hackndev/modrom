@@ -1,60 +1,41 @@
 #!/bin/sh
-#
+#run modFiles.pl
+#remove the data directory if you want to start from scratch
+#run reget_files.sh to be sure you have all the files
+#run rm-files.sh to remove unwanted files (only removes for now)
+#run makerom.sh with "-d XdX" to write to the drive at /dev/XdX
+#		or
+#run makerom.sh without "-d" to just make a rom-partition file
 
-cut_line()
-{
-echo $1 | cut -c $2
-}
+./modFiles.pl
+echo ""
+echo -n "Do you wish to start with fresh files? [Y/n] "
+while read -n 1 YESNO; do
+	if [ "$YESNO" == "y" -o "$YESNO" == "Y" ]; then
+		rm -rf data
+	fi
+	if [ "$YESNO" == "n" -o "$YESNO" == "N" ]; then
+		break
+	fi	
+done
 
-echo "" > locales
-echo "" > remove_files
+echo ""
+echo "Getting any necessary files now:"
 
-cat custom.conf | while read LINE; do
-if [ ! -z "$LINE" -a "`echo $LINE | cut -c 1`" != "#" ]; then
+./reget_files.sh
+./rm-files.sh
 
-# remove this locale
-if [ "$(cut_line $LINE 1)" == "l" ]; then
-	LOCALE="$(cut_line $LINE "1-6")"
-#	case $LOCALE in
-#		* ) echo "$LOCALE" >> locales
-		echo "$LOCALE" >> locales
-#	esac
-fi
-
-#remove this program 
-if [ "$(cut_line $LINE 1)" = "p" -o "$(cut_line $LINE 1)" = "P" ]; then
-	PROGRAM="$(cut_line $LINE "1-")"
-	BEGINN="$(cut_line $LINE "1")"
-	case $BEGINN in
-		p ) echo "$PROGRAM\*" >> remove_files
-		P ) echo "$PROGRAM" >> remove_files
-	esac
-fi
-	
+echo "If you know the /dev/ entry of your microdrive, enter it now."
+echo "If you do not, enter \"dunno\" without quotes."
+while read DEV; do
+if [ -n "$DEV" -a "$DEV" != "dunno" ]; then
+	DDEV="-d $DEV"
+	break
+elif [ "$DEV" == "dunno" ]; then
+	DDEV=""
+	break
 fi
 done
 
-if [ ! -d data ]; then
-	unzip brahma-palmos -d data > /dev/null || exit
-fi
-
-cd data
-mv ../locales ./
-mv ../remove_files ./
-
-# Removes locales not wanted
-cat locales | while read LOCALE; do
-if [ -n "$LOCALE" ]; then
-LOCALE=${LOCALE:1:5}
-#rm *$LOCALE.oprc
-fi
-done
-
-# Removes programs not wanted
-cat remove_files | while read PROG; do
-if [ -n "$PROG" ]; then
-LOCALE=${LOCALE:1:5}
-
-#rm *$LOCALE.oprc
-fi
-done
+./make_rom.sh $DDEV
+echo "Finished."

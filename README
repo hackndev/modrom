@@ -1,11 +1,14 @@
 #  This file describes what the user has to do currently
 # to get a custom ROM image.
 
-edit custom.conf, staying strictly to the rules
+run customize-rom.sh
+
+	OR
+
+run modFiles.pl
 remove the data directory if you want to start from scratch
 run reget_files.sh to be sure you have all the files
-run customize_rom.sh to remove unwanted files (only removes for now)
+run rm-files.sh to remove unwanted files (only removes for now)
 run makerom.sh with "-d XdX" to write to the drive at /dev/XdX
 		or
 run makerom.sh without "-d" to just make a rom-partition file
-

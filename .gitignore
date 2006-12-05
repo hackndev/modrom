@@ -1,3 +1,5 @@
 *.zip
 tmp_files
 data
+table.sct
+rom-partition
