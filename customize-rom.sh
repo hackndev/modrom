@@ -7,7 +7,39 @@
 #		or
 #run makerom.sh without "-d" to just make a rom-partition file
 
+echo ""
+echo "Do you wish to make a custom rom or write a generic one to disk?"
+echo -n "Type Y for custom, N for generic. "
+while read -n 1 YESNO; do
+        if [ "$YESNO" == "n" -o "$YESNO" == "N" ]; then
+		#get rom-partition and table.sct
+		./get_generic.sh
+
+		echo "If you know the /dev/ entry of your microdrive, enter it now."
+		echo "If you do not, enter nothing."
+		while read DEV; do
+		if [ -n "$DEV" -a "$DEV" != "dunno" ]; then
+			DDEV="-d $DEV"
+			break
+		elif [ "$DEV" == "dunno" ]; then
+			DDEV=""
+			break
+		elif [ "$DEV" == "" ]; then
+			DDEV=""
+			break
+		fi
+		done
+
+		./write_rom.sh $DDEV
+		exit
+        fi
+        if [ "$YESNO" == "y" -o "$YESNO" == "Y" ]; then
+                break
+        fi
+done
+
 ./modFiles.pl
+
 echo ""
 echo -n "Do you wish to start with fresh files? [Y/n] "
 while read -n 1 YESNO; do
