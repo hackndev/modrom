@@ -93,7 +93,7 @@ if [ 	-z "$(du -b brahma-palmos.zip | grep 20479778)" \
 fi
 
 if [ ! -e "makecafe.py" ]; then
-	svn cat https://svn.sourceforge.net/svnroot/hackndev/linux4palm/tools/makecafe.py > makecafe.py
+	svn cat https://hackndev.svn.sourceforge.net/svnroot/hackndev/linux4palm/tools/makecafe.py > makecafe.py
 fi
 
 if [ ! -e "table.sct" ]; then
