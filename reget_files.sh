@@ -74,7 +74,7 @@ fi
 cd Brahma* 2> /dev/null
 
 if [ ! -e "unpdb.py" ]; then
-	svn cat https://svn.sourceforge.net/svnroot/hackndev/linux4palm/tools/unpdb.py > unpdb.py
+	svn cat https://hackndev.svn.sourceforge.net/svnroot/hackndev/linux4palm/tools/unpdb.py > unpdb.py
 fi
 
 if [ ! -e "brahma-palmos.zip" ]; then

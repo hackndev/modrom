@@ -2,16 +2,16 @@
 
 # Will just download generic ROM from fahhem.com
 
-curl -o rom-partition2 http://fahhem.com/ldlinux/rom-partition.bin
+curl -o rom-partition http://fahhem.com/ldlinux/rom-partition.bin
 
-if [ "$(du rom-partition2 | cut -b 1-5)" != "19968" ]; then
+if [ "$(du rom-partition | cut -b 1-5)" != "19968" ]; then
 	echo "Fahhem.com is down."
 	exit
 fi
 
-curl -o table.sct2 http://fahhem.com/ldlinux/table.sct.bin
+curl -o table.sct http://fahhem.com/ldlinux/table.sct.bin
 
-if [ "$(du table.sct2|cut -b 1)" != "4" ]; then
+if [ "$(du table.sct|cut -b 1)" != "4" ]; then
 	echo "Fahhem.com is down."
 	exit
 fi

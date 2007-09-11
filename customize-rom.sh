@@ -12,6 +12,7 @@ echo "Do you wish to make a custom rom or write a generic one to disk?"
 echo -n "Type Y for custom, N for generic. "
 while read -n 1 YESNO; do
         if [ "$YESNO" == "n" -o "$YESNO" == "N" ]; then
+		echo ""
 		#get rom-partition and table.sct
 		./get_generic.sh
 
@@ -38,6 +39,7 @@ while read -n 1 YESNO; do
         fi
 done
 
+echo ""
 ./modFiles.pl
 
 echo ""
@@ -45,6 +47,7 @@ echo -n "Do you wish to start with fresh files? [Y/n] "
 while read -n 1 YESNO; do
 	if [ "$YESNO" == "y" -o "$YESNO" == "Y" ]; then
 		rm -rf data
+		break
 	fi
 	if [ "$YESNO" == "n" -o "$YESNO" == "N" ]; then
 		break
