@@ -18,10 +18,10 @@
 # curl or wget. curl preferred
 if [ -n "$(which curl)" ]; then
 	DL_PROG="$(which curl)"
-	DL_OPTS="-C - -O"
+	DL_OPTS="-C - -o "
 elif [ -n "$(which wget)" ]; then
 	DL_PROG="$(which wget)"
-	DL_OPTS="-c"
+	DL_OPTS="-c -O "
 else
 	echo "Please install curl or wget."
 	INSTALL_STUFF="yes"
@@ -54,7 +54,7 @@ if [ -z "$(pwd | grep \"/tmp_files\$\")" ]; then
 fi
 
 if [ -z "$(du LifeDrive_Update_2_0_EFIGS_win.zip 2> /dev/null| grep 21853)" ]; then
-	$DL_PROG $DL_OPTS http://palmone.r3h.net/downloads.palmone.com/LifeDrive_Update_2_0_EFIGS_win.zip
+	$DL_PROG $DL_OPTS LifeDrive_Update_2_0_EFIGS_win.zip http://palmone.r3h.net/downloads.palmone.com/LifeDrive_Update_2_0_EFIGS_win.zip
 fi
 
 if [ ! -e "LifeDrive 2.0 Updater.exe" ]; then
@@ -74,7 +74,7 @@ fi
 cd Brahma* 2> /dev/null
 
 if [ ! -e "unpdb.py" ]; then
-	svn cat https://hackndev.svn.sourceforge.net/svnroot/hackndev/linux4palm/tools/unpdb.py > unpdb.py
+	$DL_PROG $DL_OPTS unpdb.py "http://git.hackndev.com/?p=tools;a=blob_plain;f=unpdb.py;hb=HEAD"
 fi
 
 if [ ! -e "brahma-palmos.zip" ]; then
@@ -93,7 +93,7 @@ if [ 	-z "$(du -b brahma-palmos.zip | grep 20479778)" \
 fi
 
 if [ ! -e "makecafe.py" ]; then
-	svn cat https://hackndev.svn.sourceforge.net/svnroot/hackndev/linux4palm/tools/makecafe.py > makecafe.py
+	$DL_PROG $DL_OPTS makecafe.py "http://git.hackndev.com/?p=tools;a=blob_plain;f=makecafe.py;hb=HEAD"
 fi
 
 if [ ! -e "table.sct" ]; then
