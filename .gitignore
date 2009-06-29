@@ -3,3 +3,5 @@ tmp_files
 data
 table.sct
 rom-partition
+unpdb.py
+makecafe.py

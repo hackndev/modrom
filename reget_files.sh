@@ -73,8 +73,23 @@ fi
 
 cd Brahma* 2> /dev/null
 
+UNPDB=""
+if [ ! -e "unpdb.py" ] && [ ! -e "../../unpdb.py" ]; then
+	$DL_PROG $DL_OPTS unpdb.py "http://git.hackndev.com/?p=hackndev/tools;a=blob_plain;f=unpdb.py;hb=HEAD"
+elif [ ! -e "unpdb.py" ]; then
+	UNPDB="../../"
+fi
+
+if [ ! -e "makecafe.py" ] && [ ! -e "../../makecafe.py" ]; then
+	$DL_PROG $DL_OPTS makecafe.py "http://git.hackndev.com/?p=hackndev/tools;a=blob_plain;f=makecafe.py;hb=HEAD"
+fi
+
+if [ ! -e "table.sct" ]; then
+	echo 'AAAAAAAAAAAAAAAAAAAAAQEABlgPCD8AAACACwIAAFgQCAAoHAu/CwIAgLAAAAAoHQsLz13xP7wCAIBLdwAAAAAAAAAAAAAAAAAAAAAAVao=' | python -c 'import base64,sys;sys.stdout.write("\0"*432+base64.b64decode(sys.stdin.read()))' > ../../table.sct
+fi
+
 if [ ! -e "brahma-palmos.zip" ]; then
-	ls brahma-palmos.zip.?.pdb | sort | xargs -ti python unpdb.py {} - | dd skip=1 bs=32 > brahma-palmos.zip
+	ls brahma-palmos.zip.?.pdb | sort | xargs -ti python ${UNPDB}unpdb.py {} - | dd skip=1 bs=32 > brahma-palmos.zip
 fi
 
 if [ 	-z "$(du -b brahma-palmos.zip | grep 20479778)" \
@@ -88,17 +103,6 @@ if [ 	-z "$(du -b brahma-palmos.zip | grep 20479778)" \
 	exit
 fi
 
-if [ ! -e "unpdb.py" ] && [ ! -e "../../unpdb.py" ]; then
-	$DL_PROG $DL_OPTS unpdb.py "http://git.hackndev.com/?p=tools;a=blob_plain;f=unpdb.py;hb=HEAD"
-fi
-
-if [ ! -e "makecafe.py" ] && [ ! -e "../../makecafe.py" ]; then
-	$DL_PROG $DL_OPTS makecafe.py "http://git.hackndev.com/?p=tools;a=blob_plain;f=makecafe.py;hb=HEAD"
-fi
-
-if [ ! -e "table.sct" ]; then
-	echo 'AAAAAAAAAAAAAAAAAAAAAQEABlgPCD8AAACACwIAAFgQCAAoHAu/CwIAgLAAAAAoHQsLz13xP7wCAIBLdwAAAAAAAAAAAAAAAAAAAAAAVao=' | python -c 'import base64,sys;sys.stdout.write("\0"*432+base64.b64decode(sys.stdin.read()))' > ../../table.sct
-fi
 
 cp brahma-palmos.zip ../../
 cp makecafe.py unpdb.py ../../ 2>/dev/null
