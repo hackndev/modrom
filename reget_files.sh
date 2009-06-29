@@ -73,10 +73,6 @@ fi
 
 cd Brahma* 2> /dev/null
 
-if [ ! -e "unpdb.py" ]; then
-	$DL_PROG $DL_OPTS unpdb.py "http://git.hackndev.com/?p=tools;a=blob_plain;f=unpdb.py;hb=HEAD"
-fi
-
 if [ ! -e "brahma-palmos.zip" ]; then
 	ls brahma-palmos.zip.?.pdb | sort | xargs -ti python unpdb.py {} - | dd skip=1 bs=32 > brahma-palmos.zip
 fi
@@ -92,7 +88,11 @@ if [ 	-z "$(du -b brahma-palmos.zip | grep 20479778)" \
 	exit
 fi
 
-if [ ! -e "makecafe.py" ]; then
+if [ ! -e "unpdb.py" ] && [ ! -e "../../unpdb.py" ]; then
+	$DL_PROG $DL_OPTS unpdb.py "http://git.hackndev.com/?p=tools;a=blob_plain;f=unpdb.py;hb=HEAD"
+fi
+
+if [ ! -e "makecafe.py" ] && [ ! -e "../../makecafe.py" ]; then
 	$DL_PROG $DL_OPTS makecafe.py "http://git.hackndev.com/?p=tools;a=blob_plain;f=makecafe.py;hb=HEAD"
 fi
 
@@ -101,5 +101,6 @@ if [ ! -e "table.sct" ]; then
 fi
 
 cp brahma-palmos.zip ../../
+cp makecafe.py unpdb.py ../../ 2>/dev/null
 
 echo "All the files are set up now."
