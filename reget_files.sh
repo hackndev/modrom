@@ -75,13 +75,13 @@ cd Brahma* 2> /dev/null
 
 UNPDB=""
 if [ ! -e "unpdb.py" ] && [ ! -e "../../unpdb.py" ]; then
-	$DL_PROG $DL_OPTS unpdb.py "http://git.hackndev.com/?p=hackndev/tools;a=blob_plain;f=unpdb.py;hb=HEAD"
+	$DL_PROG $DL_OPTS unpdb.py "http://git.hackndev.com/?p=hackndev/tools.git;a=blob_plain;f=unpdb.py;hb=HEAD"
 elif [ ! -e "unpdb.py" ]; then
 	UNPDB="../../"
 fi
 
 if [ ! -e "makecafe.py" ] && [ ! -e "../../makecafe.py" ]; then
-	$DL_PROG $DL_OPTS makecafe.py "http://git.hackndev.com/?p=hackndev/tools;a=blob_plain;f=makecafe.py;hb=HEAD"
+	$DL_PROG $DL_OPTS makecafe.py "http://git.hackndev.com/?p=hackndev/tools.git;a=blob_plain;f=makecafe.py;hb=HEAD"
 fi
 
 if [ ! -e "table.sct" ]; then
