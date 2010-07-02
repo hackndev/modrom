@@ -28,11 +28,11 @@ else
 	VALIDROMMD5="7560ae777c0410ca79f51906e3778756  rom-partition"
 fi
 
-while [ "$DOWN" != "YES" ]; do
+while [ "$DOWNLOADED" != "YES" ]; do
 	if [ -f rom-partition ] && [ "$(md5sum rom-partition)" != "$VALIDROMMD5"] 2>/dev/null; then
 		echo "Found (valid) previously downloaded file - skipping download"
 	else # either doesn't exist or invalid
-		if [ "$DOWNLOADED" == "YES"]; then
+		if [ "$DOWNLOADED" == "YES" ]; then
 			#attempting to stick to DRY and not repeat MD5 check
 			echo "Fahhem.com may be down, cannot get rom-partition"
 			exit 2
